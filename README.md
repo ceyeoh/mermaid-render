@@ -41,11 +41,25 @@ Mods (function-hooks plugins) need a recent Claude Code. This mod was built and 
 
 The renderer runs as a separate process, because its bundle is larger than a hooks module may import. It needs `node` (or `bun`) on the machine. The mod tries `node`, `/opt/homebrew/bin/node`, `/usr/local/bin/node`, `bun` and `/opt/homebrew/bin/bun`, in that order, and uses the first that starts. When none starts, every diagram stays code and one line goes to the debug log (`claude --debug`).
 
+## What it runs and sends
+
+- When a finished reply holds a closed mermaid block, the mod starts `node` (or `bun`) on your machine with this plugin's `renderer/render.mjs`. It writes the diagram sources to the process as JSON on stdin and reads SVG or text back from stdout. One process draws every new diagram in a reply.
+- To find a runtime, it runs each candidate with `--version` until one starts. It does this once per session.
+- A diagram already drawn comes from an in-memory cache of up to 256 entries. The cache is gone when Claude Code exits.
+- The renderer makes no network requests, reads no files besides its own code, and writes nothing to disk. Nothing leaves your machine.
+- beautiful-mermaid's SVG asks for Google Fonts through a CSS `@import`. The renderer strips that line, and it throws away any SVG that still references a URL other than the SVG namespace, so a drawn diagram never fetches anything.
+
+## Vendored code
+
+`renderer/beautiful-mermaid.mjs` holds beautiful-mermaid 1.1.3 and its dependencies elkjs 0.11.1 and entities 7.0.1, all from npm, bundled unminified into one file by `scripts/vendor.sh`. It is not edited by hand. With bun 1.4.4, `scripts/vendor.sh` rebuilds it byte for byte, so `git status` stays clean afterwards.
+
+Most of the file reads as plain JavaScript. The elkjs part is elkjs's own published build, which is compiled from Java and is hard to read in any form. elkjs can start a Web Worker when it is given a worker URL. beautiful-mermaid never gives one, so layout runs inside the renderer process.
+
 ## Development
 
 - `claude plugin test .` runs the hook and parser tests.
 - `node renderer/render.check.mjs` runs the real renderer over a batch of diagrams.
-- `scripts/vendor.sh` rebuilds `renderer/beautiful-mermaid.js` from the pinned npm release, with its license files.
+- `scripts/vendor.sh` rebuilds `renderer/beautiful-mermaid.mjs` from the pinned npm release, with its license files.
 
 ## License
 

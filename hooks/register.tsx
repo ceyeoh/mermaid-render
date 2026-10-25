@@ -20,7 +20,7 @@ const FITS: Record<Format, (output: string, viewport: RenderViewport | undefined
   ascii: (output, viewport) => viewport === undefined || widestLine(output) <= viewport.columns,
 }
 
-// The renderer runs out of process: its bundle (beautiful-mermaid with elkjs) is 1.65 MB,
+// The renderer runs out of process: its bundle (beautiful-mermaid with elkjs) is 3.4 MB,
 // and the hooks module may not import a file over 1 MiB.
 const RENDERER = 'renderer/render.mjs'
 const RUNTIMES = ['node', '/opt/homebrew/bin/node', '/usr/local/bin/node', 'bun', '/opt/homebrew/bin/bun']

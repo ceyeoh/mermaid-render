@@ -1,4 +1,4 @@
-import { renderMermaidASCII, renderMermaidSVG } from './beautiful-mermaid.js'
+import { renderMermaidASCII, renderMermaidSVG } from './beautiful-mermaid.mjs'
 
 const SVG_LIMIT = 131072
 const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
