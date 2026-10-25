@@ -1,0 +1,4 @@
+.DS_Store
+node_modules/
+# Written by Claude Code when the folder loads as a dev mod.
+.claude-plugin/types/

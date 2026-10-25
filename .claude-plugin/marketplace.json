@@ -1,0 +1,17 @@
+{
+  "name": "mermaid-render",
+  "owner": { "name": "ceyeoh" },
+  "metadata": {
+    "description": "A Claude Code mod that draws mermaid code blocks in assistant replies as diagrams."
+  },
+  "plugins": [
+    {
+      "name": "mermaid-render",
+      "source": "./",
+      "description": "Draws mermaid fenced code blocks in assistant replies as diagrams: SVG on desktop, VS Code and mobile, box-drawing text in the terminal.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "homepage": "https://github.com/ceyeoh/mermaid-render"
+    }
+  ]
+}
