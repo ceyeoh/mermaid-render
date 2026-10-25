@@ -5,6 +5,9 @@
   "author": { "name": "ceyeoh", "url": "https://github.com/ceyeoh" },
   "homepage": "https://github.com/ceyeoh/mermaid-render",
   "repository": "https://github.com/ceyeoh/mermaid-render",
+  "documentationUrl": "https://github.com/ceyeoh/mermaid-render#readme",
+  "supportUrl": "https://github.com/ceyeoh/mermaid-render/issues",
+  "privacyPolicyUrl": "https://github.com/ceyeoh/mermaid-render#what-it-runs-and-sends",
   "license": "MIT",
   "keywords": ["mermaid", "diagram", "render", "mod"]
 }
